@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Lookup</title>
+    <script>
+        async function getStudent() {
+            const studentId = document.getElementById("studentId").value;
+            const response = await fetch(`https://call-r12v.onrender.com/student?id=${studentId}/`);
+            const data = await response.json();
+            
+            const resultDiv = document.getElementById("result");
+            if (data.error) {
+                resultDiv.innerHTML = `<p style='color:red;'>${data.error}</p>`;
+            } else {
+                resultDiv.innerHTML = `<p><strong>Name:</strong> ${data.name}</p>`;
+            }
+        }
+    </script>
+</head>
+<body>
+    <h2>Find Student by ID</h2>
+    <input type="number" id="studentId" placeholder="Enter Student ID">
+    <button onclick="getStudent()">Search</button>
+    <div id="result"></div>
+</body>
+</html>
